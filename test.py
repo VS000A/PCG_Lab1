@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, send_from_directory, request
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -72,7 +72,9 @@ def hex_to_rgb(hex_color):
     hex_color = hex_color.lstrip('#')
     return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
+def index():
+    return send_from_directory('', 'index.html')
 def index():
     color = None
     r, g, b = 50, 168, 82  # Значения по умолчанию для RGB
