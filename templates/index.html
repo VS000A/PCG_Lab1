@@ -1,1 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .color-box {
+            width: 150px;
+            height: 150px;
+            border: 1px solid black;
+            margin: 20px auto;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .form-group label {
+            display: inline-block;
+            width: 30px;
+        }
+        .form-group input {
+            width: 50px;
+        }
+        .result {
+            text-align: center;
+        }
+        .color-form {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .form-section {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
 
+    <h1 style="text-align: center;">Color Converter</h1>
+
+    <!-- Форма для выбора цвета через палитру -->
+    <form method="POST" style="text-align: center;">
+        <label for="color">Pick a color:</label>
+        <input type="color" id="color" name="color" value="{{ color if color else '#32a852' }}" oninput="updateColorBox(this.value)">
+        <button type="submit" name="color_submit">Select Color</button>
+    </form>
+
+    <!-- Реализация color-box для отображения выбранного цвета -->
+    <div class="result">
+        <div id="color-box" class="color-box" style="background-color: {{ color if color else '#32a852' }};"></div>
+    </div>
+
+    <form method="POST" class="color-form">
+        <div class="form-section">
+            <h3>RGB</h3>
+            <div class="form-group">
+                <label for="r">R:</label>
+                <input type="text" id="r" name="r" value="{{ r }}">
+            </div>
+            <div class="form-group">
+                <label for="g">G:</label>
+                <input type="text" id="g" name="g" value="{{ g }}">
+            </div>
+            <div class="form-group">
+                <label for="b">B:</label>
+                <input type="text" id="b" name="b" value="{{ b }}">
+            </div>
+            <button type="submit" name="rgb_submit">Update Color (RGB)</button>
+        </div>
+
+        <div class="form-section">
+            <h3>CMYK</h3>
+            <div class="form-group">
+                <label for="c">C:</label>
+                <input type="text" id="c" name="c" value="{{ c }}">
+            </div>
+            <div class="form-group">
+                <label for="m">M:</label>
+                <input type="text" id="m" name="m" value="{{ m }}">
+            </div>
+            <div class="form-group">
+                <label for="y">Y:</label>
+                <input type="text" id="y" name="y" value="{{ y }}">
+            </div>
+            <div class="form-group">
+                <label for="k">K:</label>
+                <input type="text" id="k" name="k" value="{{ k }}">
+            </div>
+            <button type="submit" name="cmyk_submit">Update Color (CMYK)</button>
+        </div>
+
+        <div class="form-section">
+            <h3>HSV</h3>
+            <div class="form-group">
+                <label for="h">H:</label>
+                <input type="text" id="h" name="h" value="{{ h }}">
+            </div>
+            <div class="form-group">
+                <label for="s">S:</label>
+                <input type="text" id="s" name="s" value="{{ s }}">
+            </div>
+            <div class="form-group">
+                <label for="v">V:</label>
+                <input type="text" id="v" name="v" value="{{ v }}">
+            </div>
+            <button type="submit" name="hsv_submit">Update Color (HSV)</button>
+        </div>
+    </form>
+
+    <script>
+        // Функция для обновления цвета блока при изменении в color-picker
+        function updateColorBox(color) {
+            document.getElementById('color-box').style.backgroundColor = color;
+        }
+    </script>
+
+{% if error_message %}
+<div class="error">{{ error_message }}</div>
+{% endif %}
+</body>
+</html>
